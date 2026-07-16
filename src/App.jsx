@@ -20,23 +20,23 @@ function App() {
   const [todos, setTodos] = useState(INITIAL_TODOS)
   const [theme, setTheme] = useState('dark') // Dark mode by default
   
-  // Navigation filters
+  // 필터
   const [selectedCategory, setSelectedCategory] = useState('전체')
   const [selectedFilter, setSelectedFilter] = useState('전체') // 전체, 진행 중, 완료
   const [sortOption, setSortOption] = useState('newest') // newest, oldest, deadline
   
-  // Search query
+  // 검색
   const [searchQuery, setSearchQuery] = useState('')
   const [quickAddText, setQuickAddText] = useState('')
   
-  // Modal states
+  // 모달
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalTodoId, setModalTodoId] = useState(null)
   const [modalTitle, setModalTitle] = useState('')
   const [modalCategory, setModalCategory] = useState('공부')
   const [modalDeadline, setModalDeadline] = useState('')
 
-  // Sync theme to document element
+  // 라이트/다크 테마
   useEffect(() => {
     const root = document.documentElement
     if (theme === 'light') {
@@ -48,12 +48,12 @@ function App() {
     }
   }, [theme])
 
-  // Toggle theme handler
+  // 테마 전환
   const handleToggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light')
   }
 
-  // Open add modal
+  // 모달 열기
   const handleOpenAddModal = (e) => {
     if (e) e.preventDefault()
     setModalTodoId(null)
@@ -64,7 +64,7 @@ function App() {
     setIsModalOpen(true)
   }
 
-  // Open edit modal
+  // 수정 모달 열기
   const handleOpenEditModal = (todo) => {
     setModalTodoId(todo.id)
     setModalTitle(todo.title)
@@ -73,7 +73,7 @@ function App() {
     setIsModalOpen(true)
   }
 
-  // Save/Update Todo
+  // 할일 저장
   const handleSaveTodo = (e) => {
     e.preventDefault()
     if (!modalTitle.trim()) {
@@ -82,12 +82,12 @@ function App() {
     }
 
     if (modalTodoId) {
-      setTodos(prev => prev.map(t => t.id === modalTodoId ? {
-        ...t,
+      setTodos(prev => prev.map(todo => todo.id === modalTodoId ? {
+        ...todo,
         title: modalTitle.trim(),
         category: modalCategory,
         deadline: modalDeadline
-      } : t))
+      } : todo))
     } else {
       const newTodo = {
         id: Date.now(),
@@ -104,16 +104,16 @@ function App() {
   }
 
   const handleToggleComplete = (id) => {
-    setTodos(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t))
+    setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo))
   }
 
   const handleDeleteTodo = (id) => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      setTodos(prev => prev.filter(t => t.id !== id))
+      setTodos(prev => prev.filter(todo => todo.id !== id))
     }
   }
 
-  // Stats helpers
+  // 통계
   const getCategoryCount = (cate) => {
     if (cate === '전체') return todos.length
     return todos.filter(t => t.category === cate).length
@@ -125,7 +125,7 @@ function App() {
     if (filter === '완료') return todos.filter(t => t.completed).length
   }
 
-  // Filtered & Sorted list
+  // 정렬된 할일 목록
   const filteredTodos = todos
     .filter(todo => {
       if (selectedCategory !== '전체' && todo.category !== selectedCategory) return false
