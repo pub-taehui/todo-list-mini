@@ -21,36 +21,36 @@ function App() {
   const [theme, setTheme] = useState('dark') // Dark mode by default
   
   // 필터
-  const [selectedCategory, setSelectedCategory] = useState('전체')
-  const [selectedFilter, setSelectedFilter] = useState('전체') // 전체, 진행 중, 완료
-  const [sortOption, setSortOption] = useState('newest') // newest, oldest, deadline
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+  const [selectedFilter, setSelectedFilter] = useState('전체'); // 전체, 진행 중, 완료
+  const [sortOption, setSortOption] = useState('newest'); // newest, oldest, deadline
   
   // 검색
-  const [searchQuery, setSearchQuery] = useState('')
-  const [quickAddText, setQuickAddText] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
+  const [quickAddText, setQuickAddText] = useState('');
   
   // 모달
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalTodoId, setModalTodoId] = useState(null)
-  const [modalTitle, setModalTitle] = useState('')
-  const [modalCategory, setModalCategory] = useState('공부')
-  const [modalDeadline, setModalDeadline] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTodoId, setModalTodoId] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCategory, setModalCategory] = useState('공부');
+  const [modalDeadline, setModalDeadline] = useState('');
 
   // 라이트/다크 테마
   useEffect(() => {
-    const root = document.documentElement
+    const root = document.documentElement;
     if (theme === 'light') {
-      root.classList.remove('theme-dark')
-      root.classList.add('theme-light')
+      root.classList.remove('theme-dark');
+      root.classList.add('theme-light');
     } else {
-      root.classList.remove('theme-light')
-      root.classList.add('theme-dark')
+      root.classList.remove('theme-light');
+      root.classList.add('theme-dark');
     }
   }, [theme])
 
   // 테마 전환
   const handleToggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   }
 
   // 모달 열기
@@ -80,8 +80,10 @@ function App() {
       alert('할 일 제목을 입력해주세요!')
       return
     }
-
-    if (modalTodoId) {
+    // 할 일 추가(수정) 로직
+    if (modalTodoId !== null) {
+      // 수정로직
+      // map을 사용해 배열에서 수정할 요소만 찾아서 변경
       setTodos(prev => prev.map(todo => todo.id === modalTodoId ? {
         ...todo,
         title: modalTitle.trim(),
@@ -89,6 +91,7 @@ function App() {
         deadline: modalDeadline
       } : todo))
     } else {
+      // 추가로직
       const newTodo = {
         id: Date.now(),
         title: modalTitle.trim(),
@@ -97,61 +100,59 @@ function App() {
         deadline: modalDeadline,
         createdAt: new Date().toISOString()
       }
-      setTodos(prev => [newTodo, ...prev])
-      setQuickAddText('')
+      setTodos(prev => [newTodo, ...prev]) // ...spread 문법으로 기존 배열 앞에 새 요소 추가
+      setQuickAddText(''); // 입력란 초기화
     }
-    setIsModalOpen(false)
+    setIsModalOpen(false); // 모달 닫기
   }
 
-  const handleToggleComplete = (id) => {
-    setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo))
+  const handleToggleComplete = (id) => { // 할일 완료 토글
+    setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo)) // 불변성 유지를 위해 map 사용
   }
 
-  const handleDeleteTodo = (id) => {
+  const handleDeleteTodo = (id) => { // 할일 삭제
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      setTodos(prev => prev.filter(todo => todo.id !== id))
+      setTodos(prev => prev.filter(todo => todo.id !== id)) // filter로 해당 요소 제외하여 삭제
     }
   }
 
   // 통계
   const getCategoryCount = (cate) => {
-    if (cate === '전체') return todos.length
-    return todos.filter(t => t.category === cate).length
+    if (cate === '전체') return todos.length;
+    return todos.filter(t => t.category === cate).length;
   }
-
+  // 필터링된 할일 목록 개수
   const getFilterCount = (filter) => {
-    if (filter === '전체') return todos.length
-    if (filter === '진행 중') return todos.filter(t => !t.completed).length
-    if (filter === '완료') return todos.filter(t => t.completed).length
+    if (filter === '전체') return todos.length;
+    if (filter === '진행 중') return todos.filter(t => !t.completed).length;
+    if (filter === '완료') return todos.filter(t => t.completed).length;
   }
 
   // 정렬된 할일 목록
-  const filteredTodos = todos
-    .filter(todo => {
-      if (selectedCategory !== '전체' && todo.category !== selectedCategory) return false
-      if (selectedFilter === '진행 중' && todo.completed) return false
-      if (selectedFilter === '완료' && !todo.completed) return false
-      if (searchQuery.trim() && !todo.title.toLowerCase().includes(searchQuery.toLowerCase())) return false
-      return true
-    })
-    .sort((a, b) => {
-      if (sortOption === 'newest') return new Date(b.createdAt) - new Date(a.createdAt)
-      if (sortOption === 'oldest') return new Date(a.createdAt) - new Date(b.createdAt)
-      if (sortOption === 'deadline') {
-        if (!a.deadline) return 1
-        if (!b.deadline) return -1
-        return new Date(a.deadline) - new Date(b.deadline)
+  const filteredTodos = todos.filter(todo => { // 할일 목록 필터링
+      if (selectedCategory !== '전체' && todo.category !== selectedCategory) return false; // 카테고리 필터링
+      if (selectedFilter === '진행 중' && todo.completed) return false; // 진행중 필터링
+      if (selectedFilter === '완료' && !todo.completed) return false; // 완료 필터링
+      if (searchQuery.trim() && !todo.title.toLowerCase().includes(searchQuery.toLowerCase())) return false; // 검색 필터링
+      return true; // 모든 조건에 일치하면 true
+  }).sort((a, b) => { // 할일 목록 정렬
+      if (sortOption === 'newest') return new Date(b.createdAt) - new Date(a.createdAt) // 최신순
+      if (sortOption === 'oldest') return new Date(a.createdAt) - new Date(b.createdAt) // 오래된순
+      if (sortOption === 'deadline') { // 마감순
+        if (!a.deadline) return 1 // 마감일이 없으면 뒤로
+        if (!b.deadline) return -1 // 마감일이 없으면 뒤로
+        return new Date(a.deadline) - new Date(b.deadline) // 마감일 오름차순
       }
       return 0
     })
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return ''
-    const parts = dateStr.split('-')
-    if (parts.length < 3) return dateStr
-    const month = parseInt(parts[1], 10)
-    const day = parseInt(parts[2], 10)
-    return `${month}월 ${day}일`
+  const formatDate = (dateStr) => { // 날짜 포맷 변환
+    if (!dateStr) return '' // 날짜가 없으면 빈문자열
+    const parts = dateStr.split('-') // 날짜 문자열 분리
+    if (parts.length < 3) return dateStr // 날짜 형식이 맞지 않으면 그대로 반환
+    const month = parseInt(parts[1], 10) // 월 추출
+    const day = parseInt(parts[2], 10) // 일 추출
+    return `${month}월 ${day}일` // 날짜 포맷 변환
   }
 
   return (

@@ -4,101 +4,6 @@
   ========================================================================
 */
 
-/* --- Theme Variable Definitions --- */
-.theme-dark {
-  --color-bg-app: #090b11;        /* Very dark background for application wrapper */
-  --color-bg-sidebar: #0f131a;    /* Sidebar background */
-  --color-bg-card: #151b26;       /* Card background */
-  --color-bg-input: #1b2332;      /* Input & select elements background */
-  --color-bg-hover: #222c3e;      /* Interactive hover backgrounds */
-  
-  --color-text-main: #f1f5f9;     /* Slate-100 */
-  --color-text-muted: #94a3b8;    /* Slate-400 */
-  --color-text-disabled: #475569; /* Slate-600 */
-  
-  --color-border-main: #1f293d;   /* Dark slate border */
-  --color-border-focus: #3b82f6;  /* Blue focus ring */
-  
-  --color-primary-light: rgba(59, 130, 246, 0.15);
-  --color-danger-light: rgba(239, 68, 68, 0.15);
-  --color-success-light: rgba(16, 185, 129, 0.15);
-  --color-warning-light: rgba(245, 158, 11, 0.15);
-
-  --cat-study-bg: rgba(59, 130, 246, 0.12);
-  --cat-work-bg: rgba(139, 92, 246, 0.12);
-  --cat-exercise-bg: rgba(16, 185, 129, 0.12);
-  --cat-shopping-bg: rgba(245, 158, 11, 0.12);
-  --cat-etc-bg: rgba(100, 116, 139, 0.12);
-  
-  --shadow-main: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 12px rgba(59, 130, 246, 0.3);
-}
-
-.theme-light {
-  --color-bg-app: #f4f6f9;        /* Light background for application wrapper */
-  --color-bg-sidebar: #ffffff;    /* Sidebar background */
-  --color-bg-card: #ffffff;       /* Card background */
-  --color-bg-input: #f1f5f9;      /* Input & select elements background */
-  --color-bg-hover: #e2e8f0;      /* Interactive hover backgrounds */
-  
-  --color-text-main: #0f172a;     /* Slate-900 */
-  --color-text-muted: #475569;    /* Slate-600 */
-  --color-text-disabled: #94a3b8; /* Slate-400 */
-  
-  --color-border-main: #e2e8f0;   /* Light gray border */
-  --color-border-focus: #3b82f6;  /* Blue focus ring */
-  
-  --color-primary-light: rgba(59, 130, 246, 0.1);
-  --color-danger-light: rgba(239, 68, 68, 0.1);
-  --color-success-light: rgba(16, 185, 129, 0.1);
-  --color-warning-light: rgba(245, 158, 11, 0.1);
-
-  --cat-study-bg: rgba(59, 130, 246, 0.08);
-  --cat-work-bg: rgba(139, 92, 246, 0.08);
-  --cat-exercise-bg: rgba(16, 185, 129, 0.08);
-  --cat-shopping-bg: rgba(245, 158, 11, 0.08);
-  --cat-etc-bg: rgba(100, 116, 139, 0.08);
-
-  --shadow-main: 0 4px 15px -3px rgba(0, 0, 0, 0.06), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 10px rgba(59, 130, 246, 0.2);
-}
-
-:root {
-  /* Dynamic/Fixed Colors */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-danger: #ef4444;
-  --color-danger-hover: #dc2626;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-
-  --cat-study-color: #3b82f6;
-  --cat-work-color: #8b5cf6;
-  --cat-exercise-color: #10b981;
-  --cat-shopping-color: #f59e0b;
-  --cat-etc-color: #64748b;
-
-  /* Styling Tokens */
-  --radius-full: 50%;
-  --radius-lg: 16px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
-  --radius-xs: 4px;
-  
-  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast: 0.15s ease;
-}
-
-/* --- Base Body & Reset Overrides --- */
-body {
-  background-color: var(--color-bg-app);
-  color: var(--color-text-main);
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Noto Sans KR", "Apple SD Gothic Neo", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-  overflow-x: hidden;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
-}
 
 /* --- Layout Container --- */
 .layout-app-container {
@@ -635,7 +540,7 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-muted);
-  background-color: var(--color-bg-card);
+  /* background-color: var(--color-bg-card); */
   padding: 4px 10px;
   border-radius: var(--radius-xs);
   border: 1px solid var(--color-border-main);

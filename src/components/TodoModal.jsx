@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function TodoModal(props) {
   //부모 컴포넌트(App.jsx)로부터 전달받은 props 객체
@@ -23,15 +23,8 @@ function TodoModal(props) {
           <div className="modal-body">
             <div className="form-group">
               <label htmlFor="modal-todo-title">할 일 제목</label>
-              <input 
-                type="text" 
-                id="modal-todo-title"
-                className="modal-input-text"
-                placeholder="할 일의 제목을 입력하세요."
-                value={props.title}
-                onChange={(e) => props.setTitle(e.target.value)}
-                required
-                autoFocus
+              <input type="text" id="modal-todo-title" className="modal-input-text" placeholder="할 일의 제목을 입력하세요."
+                value={props.title} onChange={(e) => props.setTitle(e.target.value)} required autoFocus
               />
             </div>
 
@@ -39,12 +32,8 @@ function TodoModal(props) {
               <label>카테고리 선택</label>
               <div className="modal-category-chips">
                 {props.categories.map(cate => (
-                  <button 
-                    key={cate}
-                    type="button" 
-                    className={`modal-category-chip ${props.category === cate ? 'selected' : ''}`}
-                    onClick={() => props.setCategory(cate)}
-                  >
+                  <button key={cate} type="button" className={`modal-category-chip ${props.category === cate ? 'selected' : ''}`}
+                    onClick={() => props.setCategory(cate)}>
                     {cate === '공부' && '📖 공부'}
                     {cate === '업무' && '💼 업무'}
                     {cate === '운동' && '🏃 운동'}
