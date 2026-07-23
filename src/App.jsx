@@ -167,11 +167,7 @@ function App() {
           <span className="logo-text">Tania's Todolist</span>
         </div>
 
-        <button 
-          type="button" 
-          className="btn-solid-add" 
-          onClick={() => handleOpenAddModal(null)}
-        >
+        <button type="button" className="btn-solid-add" onClick={() => handleOpenAddModal(null)}>
           <span className="icon">+</span> 할 일 추가
         </button>
 
@@ -179,10 +175,7 @@ function App() {
           <div className="menu-section">
             <h3 className="menu-title">카테고리</h3>
             <ul className="menu-list">
-              <li 
-                className={`menu-item ${selectedCategory === '전체' ? 'is-active' : ''}`}
-                onClick={() => setSelectedCategory('전체')}
-              >
+              <li className={`menu-item ${selectedCategory === '전체' ? 'is-active' : ''}`} onClick={() => setSelectedCategory('전체')}>
                 <span className="menu-item-left">
                   <span className="icon">📂</span>
                   <span className="name">전체</span>
@@ -190,11 +183,7 @@ function App() {
                 <span className="badge-count">{getCategoryCount('전체')}</span>
               </li>
               {CATEGORIES.map(cate => (
-                <li 
-                  key={cate}
-                  className={`menu-item ${selectedCategory === cate ? 'is-active' : ''}`}
-                  onClick={() => setSelectedCategory(cate)}
-                >
+                <li key={cate} className={`menu-item ${selectedCategory === cate ? 'is-active' : ''}`} onClick={() => setSelectedCategory(cate)}>
                   <span className="menu-item-left">
                     <span className="icon">
                       {cate === '공부' && '📖'}
@@ -215,11 +204,7 @@ function App() {
             <h3 className="menu-title">필터</h3>
             <ul className="menu-list">
               {['전체', '진행 중', '완료'].map(filter => (
-                <li 
-                  key={filter}
-                  className={`menu-item ${selectedFilter === filter ? 'is-active' : ''}`}
-                  onClick={() => setSelectedFilter(filter)}
-                >
+                <li key={filter} className={`menu-item ${selectedFilter === filter ? 'is-active' : ''}`} onClick={() => setSelectedFilter(filter)}>
                   <span className="menu-item-left">
                     <span className="name">{filter}</span>
                   </span>
@@ -230,11 +215,7 @@ function App() {
 
           <div className="menu-section">
             <h3 className="menu-title">정렬</h3>
-            <select 
-              className="select-sort-sidebar"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-            >
+            <select className="select-sort-sidebar" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
               <option value="newest">최신순</option>
               <option value="oldest">오래된순</option>
               <option value="deadline">마감일순</option>
@@ -252,12 +233,7 @@ function App() {
           </div>
           
           <div className="header-right">
-            <button 
-              type="button" 
-              className="btn-lined-theme-toggle" 
-              onClick={handleToggleTheme}
-              title={theme === 'light' ? '다크 모드로 변경' : '라이트 모드로 변경'}
-            >
+            <button type="button" className="btn-lined-theme-toggle" onClick={handleToggleTheme} title={theme === 'light' ? '다크 모드로 변경' : '라이트 모드로 변경'}>
               {theme === 'light' ? '☀️' : '🌙'}
             </button>
             <div className="user-avatar" title="사용자 정보">
